@@ -1,5 +1,15 @@
 #include QMK_KEYBOARD_H
 
+uint8_t rgb_matrix_effects[] = {
+    RGB_MATRIX_GRADIENT_UP_DOWN,
+    RGB_MATRIX_SOLID_COLOR,
+    RGB_MATRIX_BAND_SPIRAL_SAT,
+    RGB_MATRIX_NONE,
+    RGB_MATRIX_JELLYBEAN_RAINDROPS
+};
+
+uint8_t current_rgb_matrix_effect_index = 0;
+
 enum alt_keycodes {
     U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
     U_T_AGCR,              //USB Toggle Automatic GCR control
@@ -8,6 +18,7 @@ enum alt_keycodes {
     DBG_KBD,               //DEBUG Toggle Keyboard Prints
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
+    RGB_NXT,               //Custom index for RGB mode
 };
 
 keymap_config_t keymap_config;
@@ -24,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE, \
         _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU, \
-        _______, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, _______, _______, _______,          KC_PGUP, KC_VOLD, \
+        _______, RGB_TOG, RGB_NXT, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, _______, _______, _______,          KC_PGUP, KC_VOLD, \
         _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END  \
     ),
     /*
@@ -38,8 +49,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
+// Apply current matrix settings
+void set_matrix_mode(void) {
+    rgb_matrix_mode(rgb_matrix_effects[current_rgb_matrix_effect_index]);
+};
+
+// Bump and change RGB mode in a limited subset
+void increment_current_rgb_matrix_effect(void) {
+    current_rgb_matrix_effect_index++;
+    uint8_t effect_count = sizeof(rgb_matrix_effects) / sizeof(uint8_t);
+    if (current_rgb_matrix_effect_index >= effect_count) {
+        current_rgb_matrix_effect_index = 0;
+    }
+    set_matrix_mode();
+};
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+    set_matrix_mode();
 };
 
 // Runs constantly in the background, in a loop.
@@ -91,6 +118,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (timer_elapsed32(key_timer) >= 500) {
                     reset_keyboard();
                 }
+            }
+            return false;
+        case RGB_NXT:
+            if (record->event.pressed) {
+                increment_current_rgb_matrix_effect();
             }
             return false;
         case RGB_TOG:
