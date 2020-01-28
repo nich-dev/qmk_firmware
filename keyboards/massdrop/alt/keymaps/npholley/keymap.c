@@ -65,8 +65,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [3] = LAYOUT_65_ansi_blocker( // Windows FN
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE, \
-        _______,   KX_AE, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, U_T_AUTO,U_T_AGCR,  KX_OI, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
-        _______,   KX_AO, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______,          _______, KC_VOLU, \
+   _______,RALT(KC_QUOT), RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, U_T_AUTO,U_T_AGCR,RALT(KC_O),KC_PSCR,KC_SLCK,KC_PAUS, _______, KC_END, \
+   _______,RALT(KC_A), RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______,          _______, KC_VOLU, \
         _______, RGB_TOG, RGB_NXT, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, _______, _______, _______,          KC_PGUP, KC_VOLD, \
         _______, _______, _______,                            _______,                            _______,   DF(0), KC_HOME, KC_PGDN, KC_END  \
     ),
