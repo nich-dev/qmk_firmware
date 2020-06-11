@@ -33,7 +33,7 @@ A hex file `dz60_npholley.hex` will be created in the base qmk_firmware director
 
 1. Before plugging in your keyboard into your computer, hold `SPACE` and `B` keys down
 2. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootlegger mode
-3. If you are using [QMK toolbox](https://github.com/qmk/qmk_toolbox/releases), upload the .hex file you made above, select it and hit the flash button. For the love of all that is good and holy on Earth, don't hit the load button, that will load the default keymap and that's not what you want! Unless it is, in which case click away.
+3. If you are using [QMK toolbox](brew tap homebrew/cask-drivers), upload the .hex file you made above, select it and hit the flash button. For the love of all that is good and holy on Earth, don't hit the load button, that will load the default keymap and that's not what you want! Unless it is, in which case click away.
 
 Note: If you didn't follow my instructions in 4 and accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootleg mode again, hold the `down arrow` key and `\`. The default layout is Build 1 and sets the `MENU` key on that build to `Fn`. `MENU` corresponds to `down arrow` in build 4. Note that you don't have to unplug the keyboard.
 
