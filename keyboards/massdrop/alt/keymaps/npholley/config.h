@@ -4,3 +4,4 @@
 #define RGB_MATRIX_STARTUP_SAT 200 // Sets the default saturation value, if none has been set
 #define RGB_MATRIX_STARTUP_VAL 120 // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_STARTUP_SPD 100 // Sets the default animation speed, if none has been set
+#define GRAVE_ESC_CTRL_OVERRIDE 1 // always send Escape if Control is pressed |
